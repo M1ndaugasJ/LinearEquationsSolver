@@ -15,7 +15,7 @@ public class ReadMatrixFile {
 
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("nuolydziomatrica.txt"));
+            br = new BufferedReader(new FileReader("matrix.txt"));
             String line = br.readLine();
 
             while (line != null) {
