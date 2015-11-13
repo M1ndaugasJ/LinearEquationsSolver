@@ -28,14 +28,16 @@ public class HighestSlopeMethod {
         List<Double> Az0 = multiplyMatrixVector(matrixValues, z0);
 
         vectorMultiplication(z0, z0);
-        //integers.values().stream().mapToInt(Integer::intValue).sum();
+
         Double zDeflectionSum = vectorMultiplication(z0, z0).stream().mapToDouble(Double::doubleValue).sum();
         Double iterationParameter = vectorMultiplication(Az0, z0).stream().mapToDouble(Double::doubleValue).sum();
 
         System.out.println(zDeflectionSum);
         System.out.println(iterationParameter);
 
+        Double t = zDeflectionSum / iterationParameter;
 
+        System.out.println(multiplyVectorByACoefficient(fComponent, t));
 
     }
 
@@ -69,6 +71,16 @@ public class HighestSlopeMethod {
 
         for (int i = 0; i < a.size(); i++){
             multipliedVector.add(a.get(i) * b.get(i));
+        }
+
+        return multipliedVector;
+    }
+
+    public static List<Double> multiplyVectorByACoefficient(List<Double> a, Double b) {
+        List<Double> multipliedVector = new ArrayList<>();
+
+        for (int i = 0; i < a.size(); i++){
+            multipliedVector.add(a.get(i) * b);
         }
 
         return multipliedVector;
