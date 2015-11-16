@@ -9,7 +9,7 @@ public class Main {
         ReadMatrixFile readMatrixFile = new ReadMatrixFile();
         List<List<Double>> matrixFileContents = readMatrixFile.readMatrixFile();
         SeidelGaussMethod linearCalcMethod = new SeidelGaussMethod(matrixFileContents.subList(0, 4), matrixFileContents.get(4));
-        HighestSlopeMethod slopeMethod = new HighestSlopeMethod(matrixFileContents.subList(0, 4), matrixFileContents.get(4));
+        //HighestSlopeMethod slopeMethod = new HighestSlopeMethod(matrixFileContents.subList(0, 4), matrixFileContents.get(4));
         //linearCalcMethod.solveUsingSeidelGaussMethod();
         //Seidel3 seidel3 = new Seidel3(matrixFileContents.subList(0,3), matrixFileContents.get(3));
 
