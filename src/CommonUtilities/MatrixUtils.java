@@ -1,3 +1,5 @@
+package CommonUtilities;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,7 +8,7 @@ import java.util.List;
  */
 public class MatrixUtils {
 
-    static <T> List<List<T>> transpose(List<List<T>> table) {
+    public static <T> List<List<T>> transpose(List<List<T>> table) {
         List<List<T>> ret = new ArrayList<>();
         final int N = table.get(0).size();
         for (int i = 0; i < N; i++) {

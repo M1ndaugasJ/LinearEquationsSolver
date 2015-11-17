@@ -1,3 +1,7 @@
+package LinearSolvers;
+
+import CommonUtilities.MatrixUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
