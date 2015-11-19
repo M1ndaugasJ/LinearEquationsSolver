@@ -13,11 +13,11 @@ public class ReadMatrixFile {
     List<Double> matrixValues;
     List<List<Double>> matrixWithB = new ArrayList<>();
 
-    public List<List<Double>> readMatrixFile() {
+    public List<List<Double>> readMatrixFile(String fileName) {
 
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("matrix.txt"));
+            br = new BufferedReader(new FileReader(fileName));
             String line = br.readLine();
 
             while (line != null) {

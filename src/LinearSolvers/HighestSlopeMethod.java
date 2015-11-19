@@ -31,10 +31,14 @@ public class HighestSlopeMethod {
         List<Double> previousXVector;
         previousXVector = fComponent;
 
+        System.out.println("Didziausio nuolydzio metodas");
+        solveLinearEquations(z0, zScalarMultiplicationSum, previousXVector);
+
+    }
+
+    private void solveLinearEquations(List<Double> z0, Double zScalarMultiplicationSum, List<Double> previousXVector){
         int i = 0;
         double methodPrecision = Math.pow(PRECISION, 2);
-
-        System.out.println("Didziausio nuolydzio metodas");
         while(zScalarMultiplicationSum > methodPrecision){
 
             List<Double> Az0 = MatrixUtils.multiplyMatrixVector(matrixValues, z0);
@@ -48,7 +52,7 @@ public class HighestSlopeMethod {
                 xn = MatrixUtils.multiplyVectorByCoefficient(previousXVector, t);
             }else{
                 List<Double> zkBytk = MatrixUtils.multiplyVectorByCoefficient(z0, t);
-                xn = MatrixUtils.subtractMatrixVector(previousXVector, zkBytk);
+                xn = MatrixUtils.subtractVectors(previousXVector, zkBytk);
             }
 
             previousXVector = xn;
@@ -56,15 +60,14 @@ public class HighestSlopeMethod {
 
 
             List<Double> tkrk = MatrixUtils.multiplyVectorByCoefficient(Az0, t);
-            z0 = MatrixUtils.subtractMatrixVector(z0, tkrk);
+            z0 = MatrixUtils.subtractVectors(z0, tkrk);
             i++;
 
             System.out.println(String.format(format, i , xn.get(0), xn.get(1), xn.get(2), xn.get(3), z0.get(0), (PRECISION - zScalarMultiplicationSum)));
-            System.out.println(MatrixUtils.subtractMatrixVector(MatrixUtils.multiplyMatrixVector(matrixValues, xn), fComponent));
+            System.out.println(MatrixUtils.subtractVectors(MatrixUtils.multiplyMatrixVector(matrixValues, xn), fComponent));
 
             zScalarMultiplicationSum = doubleFromList(MatrixUtils.vectorMultiplication(z0, z0));
         }
-
     }
 
     private Double doubleFromList(List<Double> list){
@@ -73,7 +76,7 @@ public class HighestSlopeMethod {
 
     private List<Double> zDeflection(List<Double> productOfMatrixVectorMultiplication, List<Double> fComponent){
 
-        return MatrixUtils.subtractMatrixVector(productOfMatrixVectorMultiplication, fComponent);
+        return MatrixUtils.subtractVectors(productOfMatrixVectorMultiplication, fComponent);
     }
 
 }

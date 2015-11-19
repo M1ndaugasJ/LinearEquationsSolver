@@ -8,42 +8,28 @@ import java.util.List;
  */
 public class ThomasAlgorithmImplementation {
 
-    List<List<Double>> matrixDiagonals;
     List<Double> dVector;
     List<Double> ckthValues = new ArrayList<>();
     List<Double> dkthValues = new ArrayList<>();
-    List<Double> answers = new ArrayList<>();
 
-    //surasyt diagonalus
-
-    public ThomasAlgorithmImplementation(List<List<Double>> matrix) {
-        int listSize = matrix.size();
-        this.matrixDiagonals = matrix.subList(0, 3);
-        List<Double> cValues = matrixDiagonals.get(0);
-        List<Double> bValues = matrixDiagonals.get(1);
-        List<Double> aValues = matrixDiagonals.get(2);
-        this.dVector = matrix.get(listSize-1);
-        int convergenceCheck = isMatrixConvergant(aValues,bValues,cValues);
-        if (convergenceCheck == 2)
-        {
-            System.out.println("Matrix is not satisfying required convergence condition |bi| >= |ai| + |ci|");
-            System.exit(0);
-
-        }
-        if (convergenceCheck == 0)
-        {
-            System.out.println("Matrix is not satisfying convergence condition: |bi| >= |ai| + |ci| (the inequality must be strict on one case at least) ");
-            System.exit(0);
-        }
-        //forward(cValues,bValues,aValues);
-        //backwards(dVector.size());
-        solveLinearEquations(aValues,bValues,cValues);
-    }
-
-    public List<Double> solveLinearEquations(List<Double> aValues, List<Double> bValues, List<Double> cValues){
+    public List<Double> solveLinearEquations(List<Double> aValues, List<Double> bValues, List<Double> cValues, List<Double> dValues){
+        //int convergenceCheck = isMatrixConvergant(aValues,bValues,cValues);
+//        if (convergenceCheck == 2)
+//        {
+//            System.out.println("Matrix is not satisfying required convergence condition |bi| >= |ai| + |ci|");
+//            return null;
+//
+//        }
+//        if (convergenceCheck == 0)
+//        {
+//            System.out.println("Matrix is not satisfying convergence condition: |bi| >= |ai| + |ci| (the inequality must be strict on one case at least) ");
+//            return null;
+//        }
+        this.dVector = dValues;
         forward(cValues,bValues,aValues);
-        System.out.println(answers);
-        return backwards(dVector.size());
+        List<Double> answers = backwards(dVector.size());
+        //System.out.println("answers = " + answers);
+        return answers;
     }
 
     public void forward(List<Double> cValues, List<Double> bValues, List<Double> aValues){
@@ -87,6 +73,7 @@ public class ThomasAlgorithmImplementation {
 
     public List<Double> backwards(int bValuesSize){
         int answerIndex = 0;
+        List<Double> answers = new ArrayList<>();
         for(int i = bValuesSize-1; i >= 0; i--){
             if(answers.isEmpty()){
                 answers.add(dkthValues.get(bValuesSize-1));

@@ -36,7 +36,7 @@ public class MatrixUtils {
         return multiplied;
     }
 
-    public static List<Double> subtractMatrixVector(List<Double> a, List<Double> b) {
+    public static List<Double> subtractVectors(List<Double> a, List<Double> b) {
         List<Double> subtracted = new ArrayList<>();
         if(a.size()!=b.size()) throw new RuntimeException("Illegal vector dimensions.");
         for(int i = 0; i < a.size(); i++){
@@ -64,5 +64,15 @@ public class MatrixUtils {
         }
 
         return multipliedVector;
+    }
+
+    public static List<Double> divideVectorByCoefficient(List<Double> a, Double b) {
+        List<Double> divideVector = new ArrayList<>();
+
+        for (int i = 0; i < a.size(); i++){
+            divideVector.add(a.get(i) / b);
+        }
+
+        return divideVector;
     }
 }

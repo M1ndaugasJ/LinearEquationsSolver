@@ -73,7 +73,7 @@ public class SeidelGaussMethod {
         double paklaida = Math.max(Math.max(x1 - prevx1, x2 - prevx2), Math.max(x3 - prevx3, x4 - prevx4));
 
         System.out.println(String.format(format, i , x1, x2, x3, x4, paklaida, (PRECISION - paklaida)));
-        System.out.println(MatrixUtils.subtractMatrixVector(MatrixUtils.multiplyMatrixVector(matrixValues, initialGuesses), bComponent));
+        System.out.println(MatrixUtils.subtractVectors(MatrixUtils.multiplyMatrixVector(matrixValues, initialGuesses), bComponent));
 
         while(PRECISION < paklaida){
             prevx1 = x1;
@@ -94,7 +94,7 @@ public class SeidelGaussMethod {
             i++;
 
             System.out.println(String.format(format, i , x1, x2, x3, x4, paklaida));
-            System.out.println(MatrixUtils.subtractMatrixVector(MatrixUtils.multiplyMatrixVector(matrixValues, xn), bComponent));
+            System.out.println(MatrixUtils.subtractVectors(MatrixUtils.multiplyMatrixVector(matrixValues, xn), bComponent));
 
             if(MAX_ITERS <= i){
                 System.out.println("Method is diverging");
@@ -104,6 +104,7 @@ public class SeidelGaussMethod {
         }
 
         return null;
+
     }
 
     public boolean isConvergant(List<List<Double>> matrixValues){
