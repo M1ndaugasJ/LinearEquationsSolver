@@ -1,9 +1,7 @@
 package EigenvectorFinder;
 
-import CommonUtilities.MatrixUtils;
+import CommonUtilities.LocalMatrixUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,28 +24,30 @@ public class EigenvectorFinder {
         if(diagonalCount % 2 != 0){
             System.out.println("diagonals = " + diagonals);
             thomasAlgorithmImplementation = new ThomasAlgorithmImplementation();
-            List<Double> iterationVector = new ArrayList<>();
+            List<Double> iterationVector = thomasAlgorithmImplementation.solveLinearEquations(diagonals.get(0),getReducedDiagonalValues(diagonals.get(1), eigenValue), diagonals.get(2), matrix.get(matrix.size()-1));;
             List<Double> previousIterationVector;
-
+            Double max;
+            int index = 0;
             do{
 
                 previousIterationVector = iterationVector;
-                iterationVector = thomasAlgorithmImplementation.solveLinearEquations(diagonals.get(0),
-                        getReducedDiagonalValues(diagonals.get(1), eigenValue), diagonals.get(2), matrix.get(matrix.size()-1));
-
                 Double unsignedMaxValue = iterationVector.stream().mapToDouble(i -> Math.abs(i)).max().getAsDouble();
                 Stream<Double> maxValuesStream = iterationVector.stream().filter(i -> i == unsignedMaxValue || Math.abs(i) == unsignedMaxValue);
                 Double maxValue = maxValuesStream.findFirst().get();
 
-                List<Double> reducedVector = MatrixUtils.divideVectorByCoefficient(iterationVector, maxValue);
+                List<Double> reducedVector = LocalMatrixUtils.divideVectorByCoefficient(iterationVector, maxValue);
 
                 System.out.println(reducedVector);
-                thomasAlgorithmImplementation.solveLinearEquations(diagonals.get(0),
-                        getReducedDiagonalValues(diagonals.get(1), eigenValue), diagonals.get(2), reducedVector);
+                iterationVector = thomasAlgorithmImplementation.solveLinearEquations(diagonals.get(0),getReducedDiagonalValues(diagonals.get(1), eigenValue), diagonals.get(2), reducedVector);
 
-            } while (previousIterationVector.isEmpty() || PRECISION < Math.max(
-                    Math.max(iterationVector.get(0) - previousIterationVector.get(0), iterationVector.get(1) - previousIterationVector.get(1)),
-                    Math.max(iterationVector.get(2) - previousIterationVector.get(2), iterationVector.get(3) - previousIterationVector.get(3))));
+
+                max = Math.max(
+                        Math.max(iterationVector.get(0) - previousIterationVector.get(0), iterationVector.get(1) - previousIterationVector.get(1)),
+                        Math.max(iterationVector.get(2) - previousIterationVector.get(2), iterationVector.get(3) - previousIterationVector.get(3)));
+                System.out.println(max);
+
+                index++;
+            } while (index == 1 || PRECISION < max);
             return iterationVector;
         } else {
             Logger.getAnonymousLogger().log(Level.SEVERE, matrix_not_symmetric);

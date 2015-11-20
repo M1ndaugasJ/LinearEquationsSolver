@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Mindaugas on 11/16/15.
  */
-public class MatrixUtils {
+public class LocalMatrixUtils {
 
     public static <T> List<List<T>> transpose(List<List<T>> table) {
         List<List<T>> ret = new ArrayList<>();
